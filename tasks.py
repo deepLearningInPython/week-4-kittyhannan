@@ -109,8 +109,16 @@ print(word_frequencies)
 # Your code here:
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
-    pass # Your code
-
+    tokens = [''.join([char for char in word if char.isalnum()])
+        for word in string.split()]
+    tokens = [token.lower() for token in tokens]
+    token_freq = {}
+    for token in tokens:
+        token_freq[token] = token_freq.get(token, 0) + 1
+    
+    overKfreq = {token: count for token, count in token_freq.items() if count > k}
+    
+    return overKfreq
 # test:
 text_hist = {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog': 1}
 all(text_hist[key] == value for key, value in token_counts(text).items())
@@ -220,7 +228,8 @@ enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
 
 # Your code here:
 # -----------------------------------------------
-sigmoid = sigmoid  = lambda x: 1/(1 + np.exp(-x))
+sigmoid  = lambda x: 1/(1 + np.exp(-x)) 
+#I had previously copied this into this format from my colab incorrectly 
 
 # Test:
 np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
