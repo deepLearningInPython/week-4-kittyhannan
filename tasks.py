@@ -28,8 +28,11 @@ import numpy as np
 # -----------------------------------------------
 text = "The quick brown fox jumps over the lazy dog!"
 
-# Write a list comprehension to tokenize the text and remove punctuation
-tokens = _ # Your code here
+tokens = [
+    [char for char in word if char.isalnum()]
+    for word in text.split() 
+]
+tokens = [''.join(token) for token in tokens]
 
 # Expected output: ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
 print(tokens)
@@ -45,11 +48,18 @@ print(tokens)
 # Your code here:
 # -----------------------------------------------
 def tokenize(string: str) -> list:
-    pass # Your code
+    tokens = [
+        ''.join([char for char in word if char.isalnum()])
+        for word in string.split()
+    ]
 
+    tokens = [token.lower() for token in tokens]
 
+    uniqueTokens = sorted(set(tokens))
+
+    return uniqueTokens
 # -----------------------------------------------
-
+tokenize(text)
 
 
 # [B] Dictionary Comprehensions: Frequency Count of Tokens
@@ -72,16 +82,25 @@ def tokenize(string: str) -> list:
 # Using the list of tokens from Exercise 1, count the frequency of each word within one 
 # dictionary comprehension
 
-# Your code here:
-# -----------------------------------------------
-word_frequencies = _ # Your code here
+def tokenize2(string: str) -> list:
+    tokens = [
+        ''.join([char for char in word if char.isalnum()])
+        for word in string.split()
+    ]
+    tokens = [token.lower() for token in tokens]
+    return tokens
 
-# Expected output example: {'the': 2, 'quick': 1, ...}
-print(word_frequencies)
+
+tokens = tokenize2(text)
+
+low_word_frequencies = {word: tokens.count(word) for word in tokens}
+word_frequencies = {word: tokens.count(word) for word in tokens if tokens.count(word) > 1}
+# -----------------------------------------------
 
 # Modify the comprehension to include only words that appear more than once.
 # -----------------------------------------------
-
+print(low_word_frequencies)
+print(word_frequencies)
 
 
 # Task 4: Define a function that takes a string and an integer k, and returns a dictionary with
@@ -201,7 +220,7 @@ enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
 
 # Your code here:
 # -----------------------------------------------
-sigmoid = _ # Your code
+sigmoid = sigmoid  = lambda x: 1/(1 + np.exp(-x))
 
 # Test:
 np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
